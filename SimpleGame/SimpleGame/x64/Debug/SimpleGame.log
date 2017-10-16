@@ -1,48 +1,7 @@
-﻿  SimpleGame.cpp
-c:\users\kds25\desktop\gse\gse_project\simplegame\simplegame\simplegame.cpp(52): warning C4244: '인수': 'int'에서 'const float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\kds25\desktop\gse\gse_project\simplegame\simplegame\simplegame.cpp(53): warning C4244: '인수': 'int'에서 'const float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.11.25503\include\xmemory0(856): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.11.25503\include\list(761): note: 컴파일 중인 함수 템플릿 인스턴스화 'void std::_Default_allocator_traits<_Alloc>::construct<_Ty,int,int,int,int,int,int,int,double>(_Alloc &,_Objty *const ,int &&,int &&,int &&,int &&,int &&,int &&,int &&,double &&)'에 대한 참조를 확인하십시오.
-          with
-          [
-              _Alloc=std::allocator<std::_List_node<Object,std::_Default_allocator_traits<std::allocator<Object>>::void_pointer>>,
-              _Ty=Object,
-              _Objty=Object
-          ]
-  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.11.25503\include\list(759): note: 컴파일 중인 함수 템플릿 인스턴스화 'void std::_Default_allocator_traits<_Alloc>::construct<_Ty,int,int,int,int,int,int,int,double>(_Alloc &,_Objty *const ,int &&,int &&,int &&,int &&,int &&,int &&,int &&,double &&)'에 대한 참조를 확인하십시오.
-          with
-          [
-              _Alloc=std::allocator<std::_List_node<Object,std::_Default_allocator_traits<std::allocator<Object>>::void_pointer>>,
-              _Ty=Object,
-              _Objty=Object
-          ]
-  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.11.25503\include\list(996): note: 컴파일 중인 함수 템플릿 인스턴스화 'std::_List_node<_Ty,std::_Default_allocator_traits<_Alloc>::void_pointer> *std::_List_buy<_Ty,_Alloc>::_Buynode<int,int,int,int,int,int,int,double>(std::_List_node<_Ty,std::_Default_allocator_traits<_Alloc>::void_pointer> *,std::_List_node<_Ty,std::_Default_allocator_traits<_Alloc>::void_pointer> *,int &&,int &&,int &&,int &&,int &&,int &&,int &&,double &&)'에 대한 참조를 확인하십시오.
-          with
-          [
-              _Ty=Object,
-              _Alloc=std::allocator<Object>
-          ]
-  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.11.25503\include\list(996): note: 컴파일 중인 함수 템플릿 인스턴스화 'std::_List_node<_Ty,std::_Default_allocator_traits<_Alloc>::void_pointer> *std::_List_buy<_Ty,_Alloc>::_Buynode<int,int,int,int,int,int,int,double>(std::_List_node<_Ty,std::_Default_allocator_traits<_Alloc>::void_pointer> *,std::_List_node<_Ty,std::_Default_allocator_traits<_Alloc>::void_pointer> *,int &&,int &&,int &&,int &&,int &&,int &&,int &&,double &&)'에 대한 참조를 확인하십시오.
-          with
-          [
-              _Ty=Object,
-              _Alloc=std::allocator<Object>
-          ]
-  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.11.25503\include\list(970): note: 컴파일 중인 함수 템플릿 인스턴스화 'void std::list<Object,std::allocator<_Ty>>::_Insert<int,int,int,int,int,int,int,double>(std::_List_unchecked_const_iterator<std::_List_val<std::_List_simple_types<_Ty>>,std::_Iterator_base0>,int &&,int &&,int &&,int &&,int &&,int &&,int &&,double &&)'에 대한 참조를 확인하십시오.
-          with
-          [
-              _Ty=Object
-          ]
-  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.11.25503\include\list(970): note: 컴파일 중인 함수 템플릿 인스턴스화 'void std::list<Object,std::allocator<_Ty>>::_Insert<int,int,int,int,int,int,int,double>(std::_List_unchecked_const_iterator<std::_List_val<std::_List_simple_types<_Ty>>,std::_Iterator_base0>,int &&,int &&,int &&,int &&,int &&,int &&,int &&,double &&)'에 대한 참조를 확인하십시오.
-          with
-          [
-              _Ty=Object
-          ]
-  c:\users\kds25\desktop\gse\gse_project\simplegame\simplegame\simplegame.cpp(55): note: 컴파일 중인 함수 템플릿 인스턴스화 'void std::list<Object,std::allocator<_Ty>>::emplace_back<int,int,int,int,int,int,int,double>(int &&,int &&,int &&,int &&,int &&,int &&,int &&,double &&)'에 대한 참조를 확인하십시오.
-          with
-          [
-              _Ty=Object
-          ]
-c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.11.25503\include\xmemory0(856): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  SimpleGame.vcxproj -> C:\Users\kds25\Desktop\GSE\GSE_Project\SimpleGame\x64\Debug\SimpleGame.exe
-  SimpleGame.vcxproj -> C:\Users\kds25\Desktop\GSE\GSE_Project\SimpleGame\x64\Debug\SimpleGame.pdb (Partial PDB)
+﻿  Object.cpp
+c:\users\kds25\desktop\gse\gse_2_2012180006\simplegame\simplegame\object.cpp(46): warning C4244: 'return': 'const int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kds25\desktop\gse\gse_2_2012180006\simplegame\simplegame\object.cpp(49): warning C4244: '=': 'const float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kds25\desktop\gse\gse_2_2012180006\simplegame\simplegame\object.cpp(52): warning C4244: 'return': 'const int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kds25\desktop\gse\gse_2_2012180006\simplegame\simplegame\object.cpp(55): warning C4244: '=': 'const float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  SimpleGame.vcxproj -> C:\Users\kds25\Desktop\GSE\GSE_2_2012180006\SimpleGame\x64\Debug\SimpleGame.exe
+  SimpleGame.vcxproj -> C:\Users\kds25\Desktop\GSE\GSE_2_2012180006\SimpleGame\x64\Debug\SimpleGame.pdb (Partial PDB)

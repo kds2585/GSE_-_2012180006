@@ -5,7 +5,7 @@
 Object::Object()
 	: x(0), y(0), size(10), colorR(0), colorG(0), colorB(0), colorA(0), spd(1),dx(0),dy(250)
 {
-
+	
 }
 
 Object::Object(float sx, float sy, float sSiz, float sRed, float sGreen, float sBlue, float sAlpha, float sSpd)
