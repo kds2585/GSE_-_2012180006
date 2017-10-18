@@ -3,13 +3,17 @@
 
 
 Object::Object()
-	: x(0), y(0), size(10), colorR(0), colorG(0), colorB(0), colorA(0), spd(1),dx(0),dy(250)
+	: x(0), y(0), size(10), colorR(0), colorG(0), colorB(0), colorA(0), spd(0.1),dx(0),dy(250)
 {
 	
 }
-
 Object::Object(float sx, float sy, float sSiz, float sRed, float sGreen, float sBlue, float sAlpha, float sSpd)
 	: x(sx), y(sy), size(sSiz), colorR(sRed), colorG(sGreen), colorB(sBlue), colorA(sAlpha), spd(sSpd), dx(0), dy(0)
+{
+
+}
+Object::Object(float sx, float sy, float sSiz, float sRed, float sGreen, float sBlue, float sAlpha, float sSpd, float dx, float dy)
+	: x(sx), y(sy), size(sSiz), colorR(sRed), colorG(sGreen), colorB(sBlue), colorA(sAlpha), spd(sSpd), dx(dx), dy(dy)
 {
 
 }
@@ -60,18 +64,24 @@ void Object::drawObject(Renderer& Rend){
 }
 
 void Object::update() {
-	x += cos(atan2f(dy - y, dx - x)) * spd;
-	y += sin(atan2f(dy - y, dx - x)) * spd;
+	//x += cos(atan2f(dy - y, dx - x)) * spd;
+	//y += sin(atan2f(dy - y, dx - x)) * spd;
+	x += spd * dx;
+	y += spd * dy;
 	if (x < -250) {
+		dx = dx * -1;
 		x = -250;
 	}
 	else if (x > 250) {
+		dx = dx * -1;
 		x = 250;
 	}
 	if (y < -250) {
+		dy = dy * -1;
 		y = -250;
 	}
 	else if (y > 250) {
+		dy = dy * -1;
 		y = 250;
 	}
 }

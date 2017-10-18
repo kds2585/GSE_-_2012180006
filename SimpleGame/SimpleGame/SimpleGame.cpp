@@ -14,45 +14,43 @@ but WITHOUT ANY WARRANTY.
 #include "Dependencies\freeglut.h"
 
 #include "Renderer.h"
-#include "Object.h"
-#include <list>
+#include "SceneMgr.h"
 
 using namespace std;
 
+
+
+
+#define MAX_OBJECTS_COUNT 50
+
 Renderer *g_Renderer = NULL;
-list<Object> objList;
-Object a(0, 0, 10, 1, 0, 0, 0, 1);
+SceneMgr m_objects;
+bool LButtonDown = false;
 
 void RenderScene(void)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(0.0f, 0.3f, 0.3f, 1.0f);
-
 	// Renderer Test
 	g_Renderer->DrawSolidRect(0, 0, 0, 4, 1, 0, 1, 1);
 	// object test
-	a.drawObject(*g_Renderer);
-	for (auto& d : objList) {
-		d.drawObject(*g_Renderer);
-	}
+	m_objects.drawScene(*g_Renderer);
 	glutSwapBuffers();
 }
 
 void Idle(void)
 {
-	a.update();
-	for (auto& d : objList) {
-		d.update();
-	}
 	RenderScene();
+	m_objects.update();
 }
 
 void MouseInput(int button, int state, int x, int y)
 {
-	a.setDirX(x - 250);
-	a.setDirY(y - 250);
+	if (button == GLUT_LEFT_BUTTON) {
+		
+	}
 
-	objList.emplace_back(x - 250, -y + 250, 10, 0, 0, 0, 0, 0.1);
+	
 	RenderScene();
 }
 
@@ -68,6 +66,10 @@ void SpecialKeyInput(int key, int x, int y)
 
 int main(int argc, char **argv)
 {
+	srand((unsigned int)time(NULL));
+	for(int i = 0; i < 50; ++i)
+		m_objects.createObj(rand()%500 - 250, rand() %500 - 250);
+
 	// Initialize GL things
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);

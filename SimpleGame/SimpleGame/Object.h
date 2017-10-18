@@ -11,6 +11,8 @@ protected:
 public:
 	Object();
 
+	Object(float sx, float sy, float sSiz, float sRed, float sGreen, float sBlue, float sAlpha, float sSpd, float dx, float dy);
+
 	Object(float sx, float sy, float sSiz, float sRed, float sGreen, float sBlue, float sAlpha, float sSpd);
 
 	float getX() const;
