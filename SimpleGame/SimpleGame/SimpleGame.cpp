@@ -9,6 +9,7 @@ but WITHOUT ANY WARRANTY.
 */
 
 #include "stdafx.h"
+#include <Windows.h>
 #include <iostream>
 #include "Dependencies\glew.h"
 #include "Dependencies\freeglut.h"
@@ -23,7 +24,6 @@ using namespace std;
 
 #define MAX_OBJECTS_COUNT 50
 
-Renderer *g_Renderer = NULL;
 SceneMgr m_objects;
 bool LButtonDown = false;
 
@@ -32,9 +32,8 @@ void RenderScene(void)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(0.0f, 0.3f, 0.3f, 1.0f);
 	// Renderer Test
-	g_Renderer->DrawSolidRect(0, 0, 0, 4, 1, 0, 1, 1);
 	// object test
-	m_objects.drawScene(*g_Renderer);
+	m_objects.drawScene();
 	glutSwapBuffers();
 }
 
@@ -88,11 +87,7 @@ int main(int argc, char **argv)
 	}
 
 	// Initialize Renderer
-	g_Renderer = new Renderer(500, 500);
-	if (!g_Renderer->IsInitialized())
-	{
-		std::cout << "Renderer could not be initialized.. \n";
-	}
+	m_objects.initRenderer();
 
 	
 
@@ -103,8 +98,6 @@ int main(int argc, char **argv)
 	glutSpecialFunc(SpecialKeyInput);
 
 	glutMainLoop();
-
-	delete g_Renderer;
 
     return 0;
 }

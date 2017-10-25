@@ -8,6 +8,8 @@ protected:
 	float colorR, colorG, colorB, colorA;
 	float spd;
 	float dx, dy;
+	float Life;
+	float LifeTime;
 public:
 	Object();
 
@@ -39,11 +41,19 @@ public:
 
 	void setDirY(const float & sdy);
 
+	float getLife() const;
+
+	void setLife(const float & sLif);
+
+	float getLifeTime() const;
+
+	void setLifeTime(const float & sLifT);
+
 	void setColor(const float & sc);
 
 	void drawObject(Renderer& Rend);
 
-	void update();
+	void update(unsigned int time);
 
 
 };

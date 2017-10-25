@@ -8,6 +8,7 @@ SceneMgr::SceneMgr()
 
 SceneMgr::~SceneMgr()
 {
+	delete m_renderer;
 }
 
 void SceneMgr::createObj(const int x, const int y)
@@ -25,10 +26,21 @@ void SceneMgr::drawScene(Renderer& Rdr)
 	}
 }
 
-void SceneMgr::update()
+void SceneMgr::drawScene()
 {
 	for (auto& d : objList) {
-		d.update();
+		d.drawObject(*m_renderer);
+	}
+}
+
+void SceneMgr::update()
+{
+	DWORD currTime = timeGetTime();
+	
+	auto p = objList.begin();
+	for (auto& d : objList) {
+		
+		d.update(timeGetTime() - currTime);
 		d.setColor(1);
 		for (auto& c : objList) {
 			if (!(d.getX() == c.getX() && d.getY() == c.getY())) {
@@ -38,9 +50,13 @@ void SceneMgr::update()
 				}
 			}
 		}
-
 	}
+
 	
+}
+
+void SceneMgr::initRenderer() {
+	m_renderer = new Renderer(500, 500);
 }
 
 bool SceneMgr::collision(int rtx1, int rty1, int rbx1, int rby1, int rtx2, int rty2, int rbx2, int rby2)
