@@ -7,11 +7,11 @@ protected:
 	float x, y, size;
 	float colorR, colorG, colorB, colorA;
 	float spd;
-	int dx, dy;
+	float dx, dy;
 public:
 	Object();
 
-	Object(float sx, float sy, float sSiz, float sRed, float sGreen, float sBlue, float sAlpha, float sSpd, float dx, float dy);
+	Object(float sx, float sy, float sSiz, float sRed, float sGreen, float sBlue, float sAlpha, float sSpd, float sdx, float sdy);
 
 	Object(float sx, float sy, float sSiz, float sRed, float sGreen, float sBlue, float sAlpha, float sSpd);
 
@@ -38,6 +38,8 @@ public:
 	float getDirY() const;
 
 	void setDirY(const float & sdy);
+
+	void setColor(const float & sc);
 
 	void drawObject(Renderer& Rend);
 

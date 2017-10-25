@@ -10,6 +10,7 @@ using namespace std;
 
 class SceneMgr {
 	list<Object> objList;
+	//Renderer *m_renderer = new Renderer(NULL);
 	int objNumLimit;
 	int NumOfObj;
 
@@ -21,8 +22,8 @@ public:
 
 	void drawScene(Renderer& Rdr);
 	void update();
-	bool collision(float cx, float cy);
-	bool collision();
+	bool collision(int rtx1, int rty1, int rbx1, int rby1, int rtx2, int rty2, int rbx2, int rby2);
+
 
 
 

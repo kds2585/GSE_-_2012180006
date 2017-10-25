@@ -12,10 +12,11 @@ Object::Object(float sx, float sy, float sSiz, float sRed, float sGreen, float s
 {
 
 }
-Object::Object(float sx, float sy, float sSiz, float sRed, float sGreen, float sBlue, float sAlpha, float sSpd, float dx, float dy)
-	: x(sx), y(sy), size(sSiz), colorR(sRed), colorG(sGreen), colorB(sBlue), colorA(sAlpha), spd(sSpd), dx(dx), dy(dy)
+Object::Object(float sx, float sy, float sSiz, float sRed, float sGreen, float sBlue, float sAlpha, float sSpd, float sdx, float sdy)
+	: x(sx), y(sy), size(sSiz), colorR(sRed), colorG(sGreen), colorB(sBlue), colorA(sAlpha), spd(sSpd), dx(sdx), dy(sdy)
 {
-
+	dx = cos(atan2f(dy - y, dx - x));
+	dy = sin(atan2f(dy - y, dx - x));
 }
 
 float Object::getX() const  {
@@ -57,6 +58,10 @@ float Object::getDirY() const {
 }
 void Object::setDirY(const float& sdy) {
 	dy = -sdy;
+}
+
+void Object::setColor(const float& sc) {
+	colorR = sc;
 }
 
 void Object::drawObject(Renderer& Rend){
