@@ -1,6 +1,7 @@
 #pragma once
 #include "Renderer.h"
 
+enum OBJ { CHARA, BUILDING, BULLET, ARROW };
 
 class Object {
 protected:
@@ -10,10 +11,13 @@ protected:
 	float dx, dy;
 	float Life;
 	float LifeTime;
+	int type;
 public:
 	Object();
-
+	~Object();
 	Object(float sx, float sy, float sSiz, float sRed, float sGreen, float sBlue, float sAlpha, float sSpd, float sdx, float sdy);
+
+	Object(float sx, float sy, int type);
 
 	Object(float sx, float sy, float sSiz, float sRed, float sGreen, float sBlue, float sAlpha, float sSpd);
 
@@ -49,11 +53,13 @@ public:
 
 	void setLifeTime(const float & sLifT);
 
+	int getType();
+
 	void setColor(const float & sc);
 
 	void drawObject(Renderer& Rend);
 
-	void update(unsigned int time);
+	void update(float time);
 
 
 };

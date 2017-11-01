@@ -2,10 +2,15 @@
 #include "Object.h"
 
 
+
 Object::Object()
-	: x(0), y(0), size(10), colorR(0), colorG(0), colorB(0), colorA(0), spd(0.1),dx(0),dy(250), Life(100), LifeTime(100)
+	: x(0), y(0), size(10), colorR(0), colorG(0), colorB(0),
+	colorA(0), spd(0.1),dx(0),dy(250), Life(100), LifeTime(100)
+	
 {
 	
+}
+Object::~Object(){
 }
 Object::Object(float sx, float sy, float sSiz, float sRed, float sGreen, float sBlue, float sAlpha, float sSpd)
 	: x(sx), y(sy), size(sSiz), colorR(sRed),
@@ -22,6 +27,50 @@ Object::Object(float sx, float sy, float sSiz, float sRed, float sGreen, float s
 	dx = cos(atan2f(dy - y, dx - x));
 	dy = sin(atan2f(dy - y, dx - x));
 }
+Object::Object(float sx, float sy, int typ)
+	: x(sx), y(sy), colorR(0), colorG(0), colorB(0),
+	colorA(0), dx(rand()%500 - 250), dy(rand() % 500 - 250), Life(100), LifeTime(100)
+	, type(typ)
+{
+	switch (typ) {
+	case CHARA:
+		Life = 10;
+		spd = 100;
+		size = 10;
+		colorR = 0;
+		colorG = 0;
+		colorB = 0;
+		break;
+	case BUILDING:
+		Life = 500;
+		spd = 0;
+		size = 50;
+		colorR = 1;
+		colorG = 1;
+		colorB = 0;
+		break;
+	case BULLET:
+		Life = 20;
+		spd = 300;
+		size = 2;
+		colorR = 1;
+		colorG = 0;
+		colorB = 0;
+		break;
+	case ARROW:
+		Life = 10;
+		spd = 100;
+		size = 2;
+		colorR = 1;
+		colorG = 0;
+		colorB = 1;
+		break;
+	}
+	dx = cos(atan2f(dy - y, dx - x));
+	dy = sin(atan2f(dy - y, dx - x));
+}
+
+
 
 float Object::getX() const  {
 	return x;
@@ -77,6 +126,10 @@ void Object::setLifeTime(const float& sLifT) {
 	LifeTime = sLifT;
 }
 
+int Object::getType() {
+	return type;
+}
+
 void Object::setColor(const float& sc) {
 	colorR = sc;
 }
@@ -85,7 +138,7 @@ void Object::drawObject(Renderer& Rend){
 	Rend.DrawSolidRect(x, y, 0, size, colorR, colorG, colorB, colorA);
 }
 
-void Object::update(unsigned int time)
+void Object::update(float time)
 {
 	//x += cos(atan2f(dy - y, dx - x)) * spd;
 	//y += sin(atan2f(dy - y, dx - x)) * spd;

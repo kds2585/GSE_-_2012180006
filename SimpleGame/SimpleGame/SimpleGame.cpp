@@ -26,27 +26,36 @@ using namespace std;
 
 SceneMgr m_objects;
 bool LButtonDown = false;
+DWORD currTime(0);
+DWORD prevTime(0);
 
 void RenderScene(void)
 {
+	currTime = timeGetTime();
+
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(0.0f, 0.3f, 0.3f, 1.0f);
 	// Renderer Test
 	// object test
+	cout << (float)(currTime - prevTime) / 1000.0f << endl;
+	m_objects.update((float)(currTime - prevTime) / 1000.0f);
 	m_objects.drawScene();
+
+	prevTime = currTime;
 	glutSwapBuffers();
 }
 
 void Idle(void)
 {
 	RenderScene();
-	m_objects.update();
+
+
 }
 
 void MouseInput(int button, int state, int x, int y)
 {
-	if (button == GLUT_LEFT_BUTTON) {
-		
+	if (button == GLUT_LEFT_BUTTON && state == GLUT_UP) {
+		m_objects.createObj(x,y,CHARA);
 	}
 
 	
@@ -66,9 +75,7 @@ void SpecialKeyInput(int key, int x, int y)
 int main(int argc, char **argv)
 {
 	srand((unsigned int)time(NULL));
-	for(int i = 0; i < 50; ++i)
-		m_objects.createObj(rand()%500 - 250, rand() %500 - 250);
-
+	m_objects.createObj(250, 250, BUILDING);
 	// Initialize GL things
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);

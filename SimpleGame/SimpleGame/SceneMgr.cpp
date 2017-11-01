@@ -4,6 +4,8 @@
 SceneMgr::SceneMgr()
 {
 	objNumLimit = 50;
+	preTime = timeGetTime();
+	currTime = timeGetTime();
 }
 
 SceneMgr::~SceneMgr()
@@ -11,47 +13,45 @@ SceneMgr::~SceneMgr()
 	delete m_renderer;
 }
 
-void SceneMgr::createObj(const int x, const int y)
+void SceneMgr::createObj(const int x, const int y, const int type)
 {
 	if (NumOfObj < objNumLimit) {
 		++NumOfObj;
-		objList.emplace_back(x - 250, -y + 250, 10, 1, 1, 1, 0, (rand() % 2 + 1) / 10.0, (rand() % 1 - 1), (rand() % 1 - 1));
-	}
-}
-
-void SceneMgr::drawScene(Renderer& Rdr)
-{
-	for (auto& d : objList) {
-		d.drawObject(Rdr);
+		objList.emplace_back(x - 250, -y + 250, type);
 	}
 }
 
 void SceneMgr::drawScene()
 {
+	
+	
 	for (auto& d : objList) {
 		d.drawObject(*m_renderer);
 	}
+	
 }
 
-void SceneMgr::update()
+void SceneMgr::update(float time)
 {
-	DWORD currTime = timeGetTime();
-	
-	auto p = objList.begin();
+	auto f = objList.begin();
+
 	for (auto& d : objList) {
-		
-		d.update(timeGetTime() - currTime);
-		d.setColor(1);
+		auto p = objList.begin();
+		d.update(time);
+		d.setColor(0);
 		for (auto& c : objList) {
 			if (!(d.getX() == c.getX() && d.getY() == c.getY())) {
 				if (collision(d.getX() - d.getSize() / 2, d.getY() - d.getSize() / 2, d.getX() + d.getSize() / 2, d.getY() + d.getSize() / 2,
 					c.getX() - c.getSize() / 2, c.getY() - c.getSize() / 2, c.getX() + c.getSize() / 2, c.getY() + c.getSize() / 2)) {
-					d.setColor(0);
+					if (d.getType() == CHARA && c.getType() == BUILDING) {
+						c.setLife(c.getLife() - d.getLife());
+					}
+					d.setColor(1);
 				}
 			}
 		}
+		f++;
 	}
-
 	
 }
 
