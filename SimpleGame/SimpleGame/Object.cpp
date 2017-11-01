@@ -37,9 +37,9 @@ Object::Object(float sx, float sy, int typ)
 		Life = 10;
 		spd = 100;
 		size = 10;
-		colorR = 0;
-		colorG = 0;
-		colorB = 0;
+		colorR = 1;
+		colorG = 1;
+		colorB = 1;
 		break;
 	case BUILDING:
 		Life = 500;
@@ -52,7 +52,7 @@ Object::Object(float sx, float sy, int typ)
 	case BULLET:
 		Life = 20;
 		spd = 300;
-		size = 2;
+		size = 4;
 		colorR = 1;
 		colorG = 0;
 		colorB = 0;
@@ -60,7 +60,7 @@ Object::Object(float sx, float sy, int typ)
 	case ARROW:
 		Life = 10;
 		spd = 100;
-		size = 2;
+		size = 4;
 		colorR = 1;
 		colorG = 0;
 		colorB = 1;

@@ -3,7 +3,7 @@
 
 SceneMgr::SceneMgr()
 {
-	objNumLimit = 50;
+	objNumLimit = 200;
 	preTime = timeGetTime();
 	currTime = timeGetTime();
 }
@@ -17,14 +17,12 @@ void SceneMgr::createObj(const int x, const int y, const int type)
 {
 	if (NumOfObj < objNumLimit) {
 		++NumOfObj;
-		objList.emplace_back(x - 250, -y + 250, type);
+		objList.emplace_back(x, -y, type);
 	}
 }
 
 void SceneMgr::drawScene()
 {
-	
-	
 	for (auto& d : objList) {
 		d.drawObject(*m_renderer);
 	}
@@ -33,26 +31,35 @@ void SceneMgr::drawScene()
 
 void SceneMgr::update(float time)
 {
-	auto f = objList.begin();
+	static float count(0);
+	count += time;
 
-	for (auto& d : objList) {
-		auto p = objList.begin();
-		d.update(time);
-		d.setColor(0);
+
+	for (auto& d = objList.begin(); d != objList.end(); d++) {
+		d->update(time);
+		if (count > 1 && d->getType() == BUILDING) {
+			createObj(d->getX(), d->getY(), BULLET);
+			count = 0;
+		}
 		for (auto& c : objList) {
-			if (!(d.getX() == c.getX() && d.getY() == c.getY())) {
-				if (collision(d.getX() - d.getSize() / 2, d.getY() - d.getSize() / 2, d.getX() + d.getSize() / 2, d.getY() + d.getSize() / 2,
-					c.getX() - c.getSize() / 2, c.getY() - c.getSize() / 2, c.getX() + c.getSize() / 2, c.getY() + c.getSize() / 2)) {
-					if (d.getType() == CHARA && c.getType() == BUILDING) {
-						c.setLife(c.getLife() - d.getLife());
+			if (!(d->getX() == c.getX() && d->getY() == c.getY())) {
+				if (collision(d->getX() - d->getSize() / 2, d->getY() - d->getSize() / 2, d->getX() + d->getSize() / 2, d->getY() + d->getSize() / 2,
+							  c.getX() - c.getSize() / 2, c.getY() - c.getSize() / 2, c.getX() + c.getSize() / 2, c.getY() + c.getSize() / 2)) {
+					if (d->getType() == CHARA && c.getType() == BUILDING) {
+						c.setLife(c.getLife() - d->getLife());
+						d->setLife(0);
 					}
-					d.setColor(1);
+					else if (d->getType() == CHARA && c.getType() == BULLET) {
+						d->setLife(d->getLife() - c.getLife());
+						c.setLife(0);
+					}
 				}
 			}
 		}
-		f++;
+		if (d->getLife() <= 0) {
+			d = objList.erase(d);
+		}
 	}
-	
 }
 
 void SceneMgr::initRenderer() {
