@@ -27,10 +27,10 @@ Object::Object(float sx, float sy, float sSiz, float sRed, float sGreen, float s
 	dx = cos(atan2f(dy - y, dx - x));
 	dy = sin(atan2f(dy - y, dx - x));
 }
-Object::Object(float sx, float sy, int typ, int id)
+Object::Object(float sx, float sy, int typ, int sid)
 	: x(sx), y(sy), colorR(0), colorG(0), colorB(0),
 	colorA(0), dx(rand()%500 - 250), dy(rand() % 500 - 250), Life(100), LifeTime(100)
-	, type(typ), id(0)
+	, type(typ), id(sid)
 {
 	switch (typ) {
 	case CHARA:

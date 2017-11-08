@@ -44,5 +44,11 @@ c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.1
           [
               _Ty=Object
           ]
+  Object.cpp
+c:\users\kds25\desktop\gse\gse_2_2012180006\simplegame\simplegame\object.cpp(10): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kds25\desktop\gse\gse_2_2012180006\simplegame\simplegame\object.cpp(34): warning C4244: '초기화 중': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  코드를 생성하고 있습니다...
+  건너뛰고 있습니다... (관련된 변경 내용 없음)
+  SimpleGame.cpp
   SimpleGame.vcxproj -> C:\Users\kds25\Desktop\GSE\GSE_2_2012180006\SimpleGame\x64\Debug\SimpleGame.exe
   SimpleGame.vcxproj -> C:\Users\kds25\Desktop\GSE\GSE_2_2012180006\SimpleGame\x64\Debug\SimpleGame.pdb (Partial PDB)

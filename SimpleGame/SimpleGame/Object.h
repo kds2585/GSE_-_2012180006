@@ -18,7 +18,7 @@ public:
 	~Object();
 	Object(float sx, float sy, float sSiz, float sRed, float sGreen, float sBlue, float sAlpha, float sSpd, float sdx, float sdy);
 
-	Object(float sx, float sy, int typ, int id);
+	Object(float sx, float sy, int typ, int sid);
 
 	Object(float sx, float sy, float sSiz, float sRed, float sGreen, float sBlue, float sAlpha, float sSpd);
 
