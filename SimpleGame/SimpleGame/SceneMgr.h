@@ -16,17 +16,18 @@ class SceneMgr {
 	Renderer *m_renderer;
 	int objNumLimit;
 	int NumOfObj;
-	DWORD preTime;
-	DWORD currTime;
-
+	int BImage;
 public:
 	SceneMgr();
 	~SceneMgr();
 	void createObj(const int x, const int y, const int type);
 
+	void createObjSon(const int x, const int y, const int type, const int pid);
+
 	void drawScene();
 	void update(float time);
 	void initRenderer();
+	void imageLoad();
 	bool collision(int rtx1, int rty1, int rbx1, int rby1, int rtx2, int rty2, int rbx2, int rby2);
 
 

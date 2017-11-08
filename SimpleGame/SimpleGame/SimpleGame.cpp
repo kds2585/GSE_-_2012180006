@@ -36,8 +36,6 @@ void RenderScene(void)
 	frameTime = (float)(currTime - prevTime) / 1000.0f;
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-	// Renderer Test
-	// object test
 	m_objects.update(frameTime);
 	m_objects.drawScene();
 
@@ -48,8 +46,6 @@ void RenderScene(void)
 void Idle(void)
 {
 	RenderScene();
-
-
 }
 
 void MouseInput(int button, int state, int x, int y)
@@ -95,6 +91,7 @@ int main(int argc, char **argv)
 
 	// Initialize Renderer
 	m_objects.initRenderer();
+	m_objects.imageLoad();
 
 	
 

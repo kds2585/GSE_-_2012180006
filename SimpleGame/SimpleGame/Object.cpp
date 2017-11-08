@@ -5,7 +5,7 @@
 
 Object::Object()
 	: x(0), y(0), size(10), colorR(0), colorG(0), colorB(0),
-	colorA(0), spd(0.1),dx(0),dy(250), Life(100), LifeTime(100)
+	colorA(1), spd(0.1),dx(0),dy(250), Life(100), LifeTime(100)
 	
 {
 	
@@ -27,10 +27,10 @@ Object::Object(float sx, float sy, float sSiz, float sRed, float sGreen, float s
 	dx = cos(atan2f(dy - y, dx - x));
 	dy = sin(atan2f(dy - y, dx - x));
 }
-Object::Object(float sx, float sy, int typ)
+Object::Object(float sx, float sy, int typ, int id)
 	: x(sx), y(sy), colorR(0), colorG(0), colorB(0),
 	colorA(0), dx(rand()%500 - 250), dy(rand() % 500 - 250), Life(100), LifeTime(100)
-	, type(typ)
+	, type(typ), id(0)
 {
 	switch (typ) {
 	case CHARA:
@@ -61,14 +61,16 @@ Object::Object(float sx, float sy, int typ)
 		Life = 10;
 		spd = 100;
 		size = 4;
-		colorR = 1;
-		colorG = 0;
-		colorB = 1;
+		colorR = 0;
+		colorG = 1;
+		colorB = 0;
 		break;
 	}
+	colorA = 1;
 	dx = cos(atan2f(dy - y, dx - x));
 	dy = sin(atan2f(dy - y, dx - x));
 }
+
 
 
 
@@ -126,6 +128,9 @@ void Object::setLifeTime(const float& sLifT) {
 	LifeTime = sLifT;
 }
 
+int Object::getid() const {
+	return id;
+}
 int Object::getType() {
 	return type;
 }
@@ -134,8 +139,25 @@ void Object::setColor(const float& sc) {
 	colorR = sc;
 }
 
-void Object::drawObject(Renderer& Rend){
-	Rend.DrawSolidRect(x, y, 0, size, colorR, colorG, colorB, colorA);
+void Object::drawObject(Renderer& Rend, int imgID){
+	switch (type) {
+	case CHARA:
+		Rend.DrawSolidRect(x, y, 0, size, colorR, colorG, colorB, colorA);
+
+		break;
+	case BUILDING:
+		Rend.DrawTexturedRect(x,y,0,size, colorR, colorG, colorB, colorA, imgID);
+
+		break;
+	case BULLET:
+		Rend.DrawSolidRect(x, y, 0, size, colorR, colorG, colorB, colorA);
+
+		break;
+	case ARROW:
+		Rend.DrawSolidRect(x, y, 0, size, colorR, colorG, colorB, colorA);
+
+		break;
+	}
 }
 
 void Object::update(float time)
