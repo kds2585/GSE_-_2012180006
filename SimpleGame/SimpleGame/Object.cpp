@@ -4,68 +4,91 @@
 
 
 Object::Object()
-	: x(0), y(0), size(10), colorR(0), colorG(0), colorB(0),
-	colorA(1), spd(0.1),dx(0),dy(250), Life(100), LifeTime(100)
-	
 {
 	
 }
 Object::~Object(){
 }
-Object::Object(float sx, float sy, float sSiz, float sRed, float sGreen, float sBlue, float sAlpha, float sSpd)
-	: x(sx), y(sy), size(sSiz), colorR(sRed),
-	colorG(sGreen), colorB(sBlue), colorA(sAlpha),
-	spd(sSpd), dx(0), dy(0), Life(100), LifeTime(100)
-{
-
-}
-Object::Object(float sx, float sy, float sSiz, float sRed, float sGreen, float sBlue, float sAlpha, float sSpd, float sdx, float sdy)
-	: x(sx), y(sy), size(sSiz), colorR(sRed),
-	colorG(sGreen), colorB(sBlue), colorA(sAlpha),
-	spd(sSpd), dx(sdx), dy(sdy), Life(100), LifeTime(100)
-{
-	dx = cos(atan2f(dy - y, dx - x));
-	dy = sin(atan2f(dy - y, dx - x));
-}
-Object::Object(float sx, float sy, int typ, int sid)
-	: x(sx), y(sy), colorR(0), colorG(0), colorB(0),
-	colorA(0), dx(rand()%500 - 250), dy(rand() % 500 - 250), Life(100), LifeTime(100)
-	, type(typ), id(sid)
+Object::Object(const float sx, const float sy, const int typ, const int sid, const int steam)
+	: x(sx), y(sy),	colorA(1),
+	dx(rand() % WinWid - MidX),
+	dy(rand() % WinHei - MidY),
+	Life(100), LifeTime(10),
+	type(typ), id(sid), team(steam)
 {
 	switch (typ) {
 	case CHARA:
 		Life = 10;
-		spd = 100;
+		spd = 300;
 		size = 10;
-		colorR = 1;
-		colorG = 1;
-		colorB = 1;
+		CoolDown = CHARACOOL;
 		break;
 	case BUILDING:
 		Life = 500;
 		spd = 0;
 		size = 50;
-		colorR = 1;
-		colorG = 1;
-		colorB = 0;
+		CoolDown = BUILDINGCOOL;
 		break;
 	case BULLET:
 		Life = 20;
-		spd = 300;
+		spd = 600;
 		size = 4;
-		colorR = 1;
-		colorG = 0;
-		colorB = 0;
 		break;
 	case ARROW:
 		Life = 10;
 		spd = 100;
 		size = 4;
-		colorR = 0;
-		colorG = 1;
-		colorB = 0;
 		break;
 	}
+	if (steam == TeamA) {
+		switch (typ) {
+		case CHARA:
+			colorR = 0;
+			colorG = 0;
+			colorB = 1;
+			break;
+		case BUILDING:
+			colorR = 1;
+			colorG = 1;
+			colorB = 0;
+			break;
+		case BULLET:
+			colorR = 0;
+			colorG = 0;
+			colorB = 1;
+			break;
+		case ARROW:
+			colorR = 1;
+			colorG = 1;
+			colorB = 0;
+			break;
+		}
+	}
+	else if (steam == TeamB) {
+		switch (typ) {
+		case CHARA:
+			colorR = 1;
+			colorG = 0;
+			colorB = 0;
+			break;
+		case BUILDING:
+			colorR = 1;
+			colorG = 1;
+			colorB = 0;
+			break;
+		case BULLET:
+			colorR = 1;
+			colorG = 0;
+			colorB = 0;
+			break;
+		case ARROW:
+			colorR = 0.5;
+			colorG = 0.2;
+			colorB = 0.7;
+			break;
+		}
+	}
+
 	colorA = 1;
 	dx = cos(atan2f(dy - y, dx - x));
 	dy = sin(atan2f(dy - y, dx - x));
@@ -77,69 +100,83 @@ Object::Object(float sx, float sy, int typ, int sid)
 float Object::getX() const  {
 	return x;
 }
-void Object::setX(const float& sx) {
+void Object::setX(const float sx) {
 	x = sx;
 }
 
 float Object::getY() const {
 	return y;
 }
-void Object::setY(const float& sy) {
+void Object::setY(const float sy) {
 	y = sy;
 }
 
 float Object::getSize() const {
 	return size;
 }
-void Object::setSize(const float& sSize) {
+void Object::setSize(const float sSize) {
 	size = sSize;
 }
 
 float Object::getSpd() const {
 	return spd;
 }
-void Object::setSpd(const float& sSpd) {
+void Object::setSpd(const float sSpd) {
 	spd = sSpd;
+}
+
+int Object::getTeam() const {
+	return team;
+}
+void Object::setTeam(const float sSpd) {
+	spd = sSpd;
+}
+
+float Object::getCool() const {
+	return CoolDown;
+}
+void Object::setCool(const float sCool) {
+	CoolDown = sCool;
 }
 
 float Object::getDirX() const {
 	return dx;
 }
-void Object::setDirX(const float& sdx) {
+void Object::setDirX(const float sdx) {
 	dx = sdx;
 }
 float Object::getDirY() const {
 	return dy;
 }
-void Object::setDirY(const float& sdy) {
+void Object::setDirY(const float sdy) {
 	dy = -sdy;
 }
 
 float Object::getLife() const {
 	return Life;
 }
-void Object::setLife(const float& sLif) {
+void Object::setLife(const float sLif) {
 	Life = sLif;
 }
 float Object::getLifeTime() const {
 	return LifeTime;
 }
-void Object::setLifeTime(const float& sLifT) {
+void Object::setLifeTime(const float sLifT) {
 	LifeTime = sLifT;
 }
 
 int Object::getid() const {
 	return id;
 }
-int Object::getType() {
+int Object::getType() const {
 	return type;
 }
 
-void Object::setColor(const float& sc) {
+void Object::setColor(const float sc) {
 	colorR = sc;
 }
 
-void Object::drawObject(Renderer& Rend, int imgID){
+void Object::drawObject(Renderer& Rend, const int imgID){
 	switch (type) {
 	case CHARA:
 		Rend.DrawSolidRect(x, y, 0, size, colorR, colorG, colorB, colorA);
@@ -160,26 +197,25 @@ void Object::drawObject(Renderer& Rend, int imgID){
 	}
 }
 
-void Object::update(float time)
+void Object::update(const float time)
 {
-	//x += cos(atan2f(dy - y, dx - x)) * spd;
-	//y += sin(atan2f(dy - y, dx - x)) * spd;
 	x += spd * dx * time;
 	y += spd * dy * time;
-	if (x < -250) {
+	//LifeTime -= time;
+	if (x < -MidX) {
 		dx = dx * -1;
-		x = -250;
+		x = -MidX;
 	}
-	else if (x > 250) {
+	else if (x > MidX) {
 		dx = dx * -1;
-		x = 250;
+		x = MidX;
 	}
-	if (y < -250) {
+	if (y < -MidY) {
 		dy = dy * -1;
-		y = -250;
+		y = -MidY;
 	}
-	else if (y > 250) {
+	else if (y > MidY) {
 		dy = dy * -1;
-		y = 250;
+		y = MidY;
 	}
 }

@@ -39,6 +39,9 @@
     <ClInclude Include="LoadPng.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Define.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -82,6 +85,9 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resource\aa.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Resource\bb.png">
       <Filter>리소스 파일</Filter>
     </Image>
   </ItemGroup>

@@ -1,7 +1,8 @@
 #pragma once
 #include "Renderer.h"
+#include "Define.h"
 
-enum OBJ { CHARA = 1, BUILDING, BULLET, ARROW };
+
 
 class Object {
 protected:
@@ -11,16 +12,14 @@ protected:
 	float dx, dy;
 	float Life;
 	float LifeTime;
+	float CoolDown;
 	int type;
+	int team;
 	int id;
 public:
 	Object();
 	~Object();
-	Object(float sx, float sy, float sSiz, float sRed, float sGreen, float sBlue, float sAlpha, float sSpd, float sdx, float sdy);
-
-	Object(float sx, float sy, int typ, int sid);
-
-	Object(float sx, float sy, float sSiz, float sRed, float sGreen, float sBlue, float sAlpha, float sSpd);
+	Object(const float sx, const float sy, const int typ, const int sid, const int steam);
 
 	float getX() const;
 
@@ -28,41 +27,50 @@ public:
 
 	float getSize() const;
 
-	void setX(const float & sx);
+	void setX(const float sx);
 
-	void setY(const float & sy);
+	void setY(const float sy);
 
-	void setSize(const float & sSize);
+	void setSize(const float sSize);
 
 	float getSpd() const;
 
-	void setSpd(const float& sSpd);
+	void setSpd(const float sSpd);
+
+
+	int getTeam() const;
+
+	void setTeam(const float sSpd);
+
+	float getCool() const;
+
+	void setCool(const float sCool);
 
 	float getDirX() const;
 
-	void setDirX(const float & sdx);
+	void setDirX(const float sdx);
 
 	float getDirY() const;
 
-	void setDirY(const float & sdy);
+	void setDirY(const float sdy);
 
 	float getLife() const;
 
-	void setLife(const float & sLif);
+	void setLife(const float sLif);
 
 	float getLifeTime() const;
 
 	int getid() const;
 
-	void setLifeTime(const float & sLifT);
+	void setLifeTime(const float sLifT);
 
-	int getType();
+	int getType() const;
 
-	void setColor(const float & sc);
+	void setColor(const float sc);
 
-	void drawObject(Renderer & Rend, int imgID);
+	void drawObject(Renderer & Rend, const int imgID);
 
-	void update(float time);
+	void update(const float time);
 
 
 };

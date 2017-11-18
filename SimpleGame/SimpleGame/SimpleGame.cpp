@@ -9,6 +9,7 @@ but WITHOUT ANY WARRANTY.
 */
 
 #include "stdafx.h"
+#include "Define.h"
 #include <Windows.h>
 #include <iostream>
 #include "Dependencies\glew.h"
@@ -17,8 +18,8 @@ but WITHOUT ANY WARRANTY.
 #include "Renderer.h"
 #include "SceneMgr.h"
 
-using namespace std;
 
+using namespace std;
 
 
 
@@ -26,9 +27,10 @@ using namespace std;
 
 SceneMgr m_objects;
 bool LButtonDown = false;
-DWORD currTime(0);
-DWORD prevTime(0);
-float frameTime;
+DWORD currTime(timeGetTime());
+DWORD prevTime(timeGetTime());
+float frameTime(0);
+float objCreateCDown(0);
 
 void RenderScene(void)
 {
@@ -36,10 +38,15 @@ void RenderScene(void)
 	frameTime = (float)(currTime - prevTime) / 1000.0f;
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+
+	if (objCreateCDown > 0)
+		objCreateCDown -= frameTime;
+
 	m_objects.update(frameTime);
 	m_objects.drawScene();
 
 	prevTime = currTime;
+	
 	glutSwapBuffers();
 }
 
@@ -50,9 +57,13 @@ void Idle(void)
 
 void MouseInput(int button, int state, int x, int y)
 {
-	if (button == GLUT_LEFT_BUTTON && state == GLUT_UP) {
-		m_objects.createObj(x-250,y-250,CHARA);
+	if (y > MidY && objCreateCDown <= 0) {
+		if (button == GLUT_LEFT_BUTTON && state == GLUT_UP) {
+			m_objects.createObj(x - MidX, y - MidY, CHARA, TeamA);
+			objCreateCDown = 2;
+		}
 	}
+
 
 	
 	RenderScene();
@@ -71,12 +82,20 @@ void SpecialKeyInput(int key, int x, int y)
 int main(int argc, char **argv)
 {
 	srand((unsigned int)time(NULL));
-	m_objects.createObj(0, 0, BUILDING);
+	
+	m_objects.createObj(0, -MidY / 1.5, BUILDING, TeamB);
+	m_objects.createObj(-MidX / 1.5, -MidY / 1.5, BUILDING, TeamB);
+	m_objects.createObj(MidX / 1.5, -MidY / 1.5, BUILDING, TeamB);
+
+	m_objects.createObj(0, MidY / 1.5, BUILDING, TeamA);
+	m_objects.createObj(-MidX / 1.5, MidY / 1.5, BUILDING, TeamA);
+	m_objects.createObj(MidX / 1.5, MidY / 1.5, BUILDING, TeamA);
+
 	// Initialize GL things
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
 	glutInitWindowPosition(0, 0);
-	glutInitWindowSize(500, 500);
+	glutInitWindowSize(WinWid, WinHei);
 	glutCreateWindow("Game Software Engineering KPU");
 
 	glewInit();
@@ -90,10 +109,10 @@ int main(int argc, char **argv)
 	}
 
 	// Initialize Renderer
-	m_objects.initRenderer();
+	m_objects.initRenderer(WinWid, WinHei);
 	m_objects.imageLoad();
 
-	
+
 
 	glutDisplayFunc(RenderScene);
 	glutIdleFunc(Idle);
