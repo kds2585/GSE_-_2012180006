@@ -11,6 +11,7 @@ protected:
 	float spd;
 	float dx, dy;
 	float Life;
+	float LifeMax;
 	float LifeTime;
 	float CoolDown;
 	int type;

@@ -48,27 +48,32 @@ void SceneMgr::update(float time)
 	count += time;
 	for (auto& d = objList.begin(); d != objList.end(); d++) {
 		d->update(time);
-		//충돌체크시 판정
+		//충돌체크 판정
 		for (auto& c : objList) {
-			if (!(d->getX() == c.getX() && d->getY() == c.getY())) {
+			if (d->getTeam() != c.getTeam()) {
 				if (collision(d->getX() - d->getSize() / 2, d->getY() - d->getSize() / 2, d->getX() + d->getSize() / 2, d->getY() + d->getSize() / 2,
 							  c.getX() - c.getSize() / 2, c.getY() - c.getSize() / 2, c.getX() + c.getSize() / 2, c.getY() + c.getSize() / 2)) {
-					if (d->getTeam() != c.getTeam()) {
-						if (d->getType() == CHARA && c.getType() == BUILDING) {
-							c.setLife(c.getLife() - d->getLife());
-							d->setLife(0);
-						}
-						if ((d->getType() == CHARA || d->getType() == BUILDING) &&
-							(c.getType() == ARROW || c.getType() == BULLET))
-						{
-							d->setLife(d->getLife() - c.getLife());
-							c.setLife(0);
-							//if (d->getid() != c.getid()) {} id 이용가치가 없어짐
-						}
+					if (d->getType() == CHARA && c.getType() == BUILDING) {
+						c.setLife(c.getLife() - d->getLife());
+						d->setLife(0);
+					}
+					if ((d->getType() == ARROW || d->getType() == BULLET) &&
+						(c.getType() == CHARA || c.getType() == BUILDING))
+					{
+						c.setLife(c.getLife() - d->getLife());
+						d->setLife(0);
 					}
 				}
 			}
 		}
+		//발사체가 화면밖으로 나갈때 처리
+		if (d->getType() == ARROW || d->getType() == BULLET) {
+			if (!collision(d->getX() + d->getSize() / 2, d->getY() + d->getSize() / 2, d->getX() - d->getSize() / 2, d->getY() - d->getSize() / 2,
+				-MidX, -MidY, MidX, MidY)) {
+				d->setLife(0);
+			}
+		}
+		//오브젝트의 라이프가 0일때 삭제처리
 		if (d->getLife() <= 0 || d->getLifeTime() <= 0) {		
 			d = objList.erase(d);
 			NumOfObj--;
@@ -76,27 +81,27 @@ void SceneMgr::update(float time)
 				break;
 			}
 		}
+		//오브젝트의 쿨다운 관련 행동
+		if (d->getCool() <= 0) {
+			if (d->getType() == BUILDING) {
+				createObjSon(d->getX(), -d->getY(), BULLET, d->getid(), d->getTeam());
+				d->setCool(CHARACOOL);
+			}
+			if (d->getType() == CHARA) {
+				createObjSon(d->getX(), -d->getY(), ARROW, d->getid(), d->getTeam());
+				d->setCool(BUILDINGCOOL);
+			}
+		}
+		else {
+			d->setCool(d->getCool() - time);
+		}
 	}
+
+	//1초마다 적 생성
 	if (count >= 1) {
 		createObj(rand() % WinWid - MidX, rand() % MidY - MidY, CHARA, TeamB);
 		count = 0;
 	}
-	for (auto& d : objList) {
-		if (d.getCool() <= 0) {
-			if (d.getType() == BUILDING) {
-				createObjSon(d.getX(), -d.getY(), BULLET, d.getid(), d.getTeam());
-				d.setCool(CHARACOOL);
-			}
-			if (d.getType() == CHARA) {
-				createObjSon(d.getX(), -d.getY(), ARROW, d.getid(), d.getTeam());
-				d.setCool(BUILDINGCOOL);
-			}
-		}
-		else {
-			d.setCool(d.getCool() - time);
-		}
-	}
-
 }
 
 void SceneMgr::initRenderer(int xl, int yl) {

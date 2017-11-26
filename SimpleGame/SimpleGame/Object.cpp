@@ -20,13 +20,13 @@ Object::Object(const float sx, const float sy, const int typ, const int sid, con
 	case CHARA:
 		Life = 10;
 		spd = 300;
-		size = 10;
+		size = 30;
 		CoolDown = CHARACOOL;
 		break;
 	case BUILDING:
 		Life = 500;
 		spd = 0;
-		size = 50;
+		size = 100;
 		CoolDown = BUILDINGCOOL;
 		break;
 	case BULLET:
@@ -40,6 +40,7 @@ Object::Object(const float sx, const float sy, const int typ, const int sid, con
 		size = 4;
 		break;
 	}
+	LifeMax = Life;
 	if (steam == TeamA) {
 		switch (typ) {
 		case CHARA:
@@ -50,7 +51,7 @@ Object::Object(const float sx, const float sy, const int typ, const int sid, con
 		case BUILDING:
 			colorR = 1;
 			colorG = 1;
-			colorB = 0;
+			colorB = 1;
 			break;
 		case BULLET:
 			colorR = 0;
@@ -74,7 +75,7 @@ Object::Object(const float sx, const float sy, const int typ, const int sid, con
 		case BUILDING:
 			colorR = 1;
 			colorG = 1;
-			colorB = 0;
+			colorB = 1;
 			break;
 		case BULLET:
 			colorR = 1;
@@ -179,19 +180,25 @@ void Object::setColor(const float sc) {
 void Object::drawObject(Renderer& Rend, const int imgID){
 	switch (type) {
 	case CHARA:
-		Rend.DrawSolidRect(x, y, 0, size, colorR, colorG, colorB, colorA);
-
+		Rend.DrawSolidRect(x, y, 0, size, colorR, colorG, colorB, colorA, LEVEL_GROUND);
+		if(team == TeamB)
+			Rend.DrawSolidRectGauge(x, y + size / 1.5, 0, size, 5, 1, 0, 0, 1,Life / LifeMax, LEVEL_GOD);
+		else
+			Rend.DrawSolidRectGauge(x, y + size / 1.5, 0, size, 5, 0, 0, 1, 1, Life / LifeMax, LEVEL_GOD);
 		break;
 	case BUILDING:
-		Rend.DrawTexturedRect(x,y,0,size, colorR, colorG, colorB, colorA, imgID);
-
+		Rend.DrawTexturedRect(x,y,0,size, colorR, colorG, colorB, colorA, imgID, LEVEL_SKY);
+		if (team == TeamB)
+			Rend.DrawSolidRectGauge(x, y + size / 1.5, 0, size, 5, 1, 0, 0, 1, Life / LifeMax, LEVEL_GOD);
+		else
+			Rend.DrawSolidRectGauge(x, y + size / 1.5, 0, size, 5, 0, 0, 1, 1, Life / LifeMax, LEVEL_GOD);
 		break;
 	case BULLET:
-		Rend.DrawSolidRect(x, y, 0, size, colorR, colorG, colorB, colorA);
+		Rend.DrawSolidRect(x, y, 0, size, colorR, colorG, colorB, colorA, LEVEL_UNDERGROUND);
 
 		break;
 	case ARROW:
-		Rend.DrawSolidRect(x, y, 0, size, colorR, colorG, colorB, colorA);
+		Rend.DrawSolidRect(x, y, 0, size, colorR, colorG, colorB, colorA, LEVEL_UNDERGROUND);
 
 		break;
 	}
@@ -202,20 +209,20 @@ void Object::update(const float time)
 	x += spd * dx * time;
 	y += spd * dy * time;
 	//LifeTime -= time;
-	if (x < -MidX) {
+	if (x - size / 2 < -MidX) {
 		dx = dx * -1;
-		x = -MidX;
+		x = -MidX + size / 2;
 	}
-	else if (x > MidX) {
+	else if (x + size / 2 > MidX) {
 		dx = dx * -1;
-		x = MidX;
+		x = MidX - size / 2;
 	}
-	if (y < -MidY) {
+	if (y - size / 2 < -MidY) {
 		dy = dy * -1;
-		y = -MidY;
+		y = -MidY + size / 2;
 	}
-	else if (y > MidY) {
+	else if (y + size / 2> MidY) {
 		dy = dy * -1;
-		y = MidY;
+		y = MidY - size / 2;
 	}
 }
