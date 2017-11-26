@@ -18,7 +18,7 @@ Object::Object(const float sx, const float sy, const int typ, const int sid, con
 {
 	switch (typ) {
 	case CHARA:
-		Life = 10;
+		Life = 100;
 		spd = 300;
 		size = 30;
 		CoolDown = CHARACOOL;
@@ -30,7 +30,7 @@ Object::Object(const float sx, const float sy, const int typ, const int sid, con
 		CoolDown = BUILDINGCOOL;
 		break;
 	case BULLET:
-		Life = 20;
+		Life = 15;
 		spd = 600;
 		size = 4;
 		break;
