@@ -2,13 +2,15 @@
 c:\users\kds25\desktop\gse\gse_2_2012180006\simplegame\simplegame\object.cpp(18): warning C4244: '초기화 중': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
 c:\users\kds25\desktop\gse\gse_2_2012180006\simplegame\simplegame\object.cpp(87): warning C4305: '=': 'double'에서 'float'(으)로 잘립니다.
 c:\users\kds25\desktop\gse\gse_2_2012180006\simplegame\simplegame\object.cpp(88): warning C4305: '=': 'double'에서 'float'(으)로 잘립니다.
-c:\users\kds25\desktop\gse\gse_2_2012180006\simplegame\simplegame\object.cpp(183): warning C4305: '인수': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kds25\desktop\gse\gse_2_2012180006\simplegame\simplegame\object.cpp(184): warning C4305: '인수': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kds25\desktop\gse\gse_2_2012180006\simplegame\simplegame\object.cpp(184): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
 c:\users\kds25\desktop\gse\gse_2_2012180006\simplegame\simplegame\object.cpp(185): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\kds25\desktop\gse\gse_2_2012180006\simplegame\simplegame\object.cpp(187): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\kds25\desktop\gse\gse_2_2012180006\simplegame\simplegame\object.cpp(190): warning C4305: '인수': 'double'에서 'float'(으)로 잘립니다.
-c:\users\kds25\desktop\gse\gse_2_2012180006\simplegame\simplegame\object.cpp(192): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\kds25\desktop\gse\gse_2_2012180006\simplegame\simplegame\object.cpp(194): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\kds25\desktop\gse\gse_2_2012180006\simplegame\simplegame\object.cpp(197): warning C4305: '인수': 'double'에서 'float'(으)로 잘립니다.
-c:\users\kds25\desktop\gse\gse_2_2012180006\simplegame\simplegame\object.cpp(201): warning C4305: '인수': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kds25\desktop\gse\gse_2_2012180006\simplegame\simplegame\object.cpp(188): warning C4305: '인수': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kds25\desktop\gse\gse_2_2012180006\simplegame\simplegame\object.cpp(188): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kds25\desktop\gse\gse_2_2012180006\simplegame\simplegame\object.cpp(189): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kds25\desktop\gse\gse_2_2012180006\simplegame\simplegame\object.cpp(193): warning C4305: '인수': 'double'에서 'float'(으)로 잘립니다.
+c:\users\kds25\desktop\gse\gse_2_2012180006\simplegame\simplegame\object.cpp(195): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kds25\desktop\gse\gse_2_2012180006\simplegame\simplegame\object.cpp(197): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\kds25\desktop\gse\gse_2_2012180006\simplegame\simplegame\object.cpp(204): warning C4305: '인수': 'double'에서 'float'(으)로 잘립니다.
   SimpleGame.vcxproj -> C:\Users\kds25\Desktop\GSE\GSE_2_2012180006\SimpleGame\x64\Debug\SimpleGame.exe
   SimpleGame.vcxproj -> C:\Users\kds25\Desktop\GSE\GSE_2_2012180006\SimpleGame\x64\Debug\SimpleGame.pdb (Partial PDB)

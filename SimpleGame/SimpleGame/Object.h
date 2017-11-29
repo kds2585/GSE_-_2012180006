@@ -17,6 +17,7 @@ protected:
 	int type;
 	int team;
 	int id;
+	float animation;
 public:
 	Object();
 	~Object();

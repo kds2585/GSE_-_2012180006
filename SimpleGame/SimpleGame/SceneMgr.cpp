@@ -32,11 +32,39 @@ void SceneMgr::createObjSon(const int x, const int y, const int type, const int 
 
 void SceneMgr::drawScene()
 {
+	m_renderer->DrawTexturedRect(0, 0, 0, WinHei, 1, 1, 1, 1, BImage[2], 0.9);
 	for (auto& d : objList) {
-		if(d.getTeam() == TeamA)
-			d.drawObject(*m_renderer, BImage[0]);
+		if (d.getTeam() == TeamA) {
+			switch (d.getType()) {
+			case BUILDING:
+				d.drawObject(*m_renderer, BImage[0]);
+				break;
+			case CHARA:
+				d.drawObject(*m_renderer, BImage[3]);
+				break;
+			case BULLET:
+				d.drawObject(*m_renderer, BImage[4]);
+				break;
+			default:
+				d.drawObject(*m_renderer, 0);
+				break;
+			}
+		}
 		else if (d.getTeam() == TeamB) {
-			d.drawObject(*m_renderer, BImage[1]);
+			switch (d.getType()) {
+			case BUILDING:
+				d.drawObject(*m_renderer, BImage[1]);
+				break;
+			case CHARA:
+				d.drawObject(*m_renderer, BImage[3]);
+				break;
+			case BULLET:
+				d.drawObject(*m_renderer, BImage[4]);
+				break;
+			default:
+				d.drawObject(*m_renderer, 0);
+				break;
+			}
 		}
 	}
 	
@@ -110,6 +138,10 @@ void SceneMgr::initRenderer(int xl, int yl) {
 void SceneMgr::imageLoad() {
 	BImage[0] = m_renderer->CreatePngTexture("Resource/aa.png");
 	BImage[1] = m_renderer->CreatePngTexture("Resource/bb.png");
+	BImage[2] = m_renderer->CreatePngTexture("Resource/BG.png");
+	BImage[3] = m_renderer->CreatePngTexture("Resource/Char.png");
+	BImage[4] = m_renderer->CreatePngTexture("Resource/part.png");
+
 }
 bool SceneMgr::collision(int rtx1, int rty1, int rbx1, int rby1, int rtx2, int rty2, int rbx2, int rby2)
 {

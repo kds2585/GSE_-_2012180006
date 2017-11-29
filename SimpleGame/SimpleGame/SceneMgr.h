@@ -17,7 +17,7 @@ class SceneMgr {
 	Renderer *m_renderer;
 	int objNumLimit;
 	int NumOfObj;
-	int BImage[2];
+	int BImage[5];
 public:
 	SceneMgr();
 	~SceneMgr();

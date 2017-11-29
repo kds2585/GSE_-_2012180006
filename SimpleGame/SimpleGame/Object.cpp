@@ -10,11 +10,11 @@ Object::Object()
 Object::~Object(){
 }
 Object::Object(const float sx, const float sy, const int typ, const int sid, const int steam)
-	: x(sx), y(sy),	colorA(1),
+	: x(sx), y(sy), colorA(1),
 	dx(rand() % WinWid - MidX),
 	dy(rand() % WinHei - MidY),
 	Life(100), LifeTime(10),
-	type(typ), id(sid), team(steam)
+	type(typ), id(sid), team(steam), animation(0)
 {
 	switch (typ) {
 	case CHARA:
@@ -180,11 +180,14 @@ void Object::setColor(const float sc) {
 void Object::drawObject(Renderer& Rend, const int imgID){
 	switch (type) {
 	case CHARA:
-		Rend.DrawSolidRect(x, y, 0, size, colorR, colorG, colorB, colorA, LEVEL_GROUND);
-		if(team == TeamB)
-			Rend.DrawSolidRectGauge(x, y + size / 1.5, 0, size, 5, 1, 0, 0, 1,Life / LifeMax, LEVEL_GOD);
-		else
+		if (team == TeamB) {
+			Rend.DrawTexturedRectSeq(x, y, 0, size, colorR, colorG, colorB, colorA, imgID, animation, 0, 15, 1, LEVEL_GROUND);
+			Rend.DrawSolidRectGauge(x, y + size / 1.5, 0, size, 5, 1, 0, 0, 1, Life / LifeMax, LEVEL_GOD);
+		}
+		else {
+			Rend.DrawTexturedRectSeq(x, y, 0, size, colorR, colorG, colorB, colorA, imgID, animation, 0, 15, 1, LEVEL_GROUND);
 			Rend.DrawSolidRectGauge(x, y + size / 1.5, 0, size, 5, 0, 0, 1, 1, Life / LifeMax, LEVEL_GOD);
+		}
 		break;
 	case BUILDING:
 		Rend.DrawTexturedRect(x,y,0,size, colorR, colorG, colorB, colorA, imgID, LEVEL_SKY);
@@ -194,8 +197,8 @@ void Object::drawObject(Renderer& Rend, const int imgID){
 			Rend.DrawSolidRectGauge(x, y + size / 1.5, 0, size, 5, 0, 0, 1, 1, Life / LifeMax, LEVEL_GOD);
 		break;
 	case BULLET:
-		Rend.DrawSolidRect(x, y, 0, size, colorR, colorG, colorB, colorA, LEVEL_UNDERGROUND);
-
+		Rend.DrawParticle(x, y, 0, size, colorR, colorG, colorB, colorA, -dx, -dy, imgID, animation);
+		//Rend.DrawSolidRect(x, y, 0, size, colorR, colorG, colorB, colorA, LEVEL_UNDERGROUND);
 		break;
 	case ARROW:
 		Rend.DrawSolidRect(x, y, 0, size, colorR, colorG, colorB, colorA, LEVEL_UNDERGROUND);
@@ -208,21 +211,34 @@ void Object::update(const float time)
 {
 	x += spd * dx * time;
 	y += spd * dy * time;
+	switch (type) {
+	case CHARA:
+		animation += time * 10;
+		if (animation >= 15) {
+			animation = 0;
+		}
+		break;
+	case BULLET:
+		animation += time;
+		break;
+	}
+
+
 	//LifeTime -= time;
-	if (x - size / 2 < -MidX) {
+	if (x < -MidX) {
 		dx = dx * -1;
-		x = -MidX + size / 2;
+		x = -MidX;
 	}
-	else if (x + size / 2 > MidX) {
+	else if (x > MidX) {
 		dx = dx * -1;
-		x = MidX - size / 2;
+		x = MidX;
 	}
-	if (y - size / 2 < -MidY) {
+	if (y < -MidY) {
 		dy = dy * -1;
-		y = -MidY + size / 2;
+		y = -MidY;
 	}
-	else if (y + size / 2> MidY) {
+	else if (y > MidY) {
 		dy = dy * -1;
-		y = MidY - size / 2;
+		y = MidY;
 	}
 }
