@@ -1,7 +1,7 @@
 #pragma once
 
-#include <Windows.h>
 #include "Object.h"
+#include "Sound.h"
 #include <list>
 #include <random>
 #include <time.h>
@@ -15,9 +15,11 @@ using namespace std;
 class SceneMgr {
 	list<Object> objList;
 	Renderer *m_renderer;
+	Sound *m_sound;
 	int objNumLimit;
 	int NumOfObj;
 	int BImage[5];
+	int SoundNum[2];
 public:
 	SceneMgr();
 	~SceneMgr();
@@ -28,6 +30,7 @@ public:
 	void drawScene();
 	void update(float time);
 	void initRenderer(int xl, int yl);
+	void initSound();
 	void imageLoad();
 	bool collision(int rtx1, int rty1, int rbx1, int rby1, int rtx2, int rty2, int rbx2, int rby2);
 

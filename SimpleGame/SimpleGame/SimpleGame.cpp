@@ -111,7 +111,7 @@ int main(int argc, char **argv)
 	// Initialize Renderer
 	m_objects.initRenderer(WinWid, WinHei);
 	m_objects.imageLoad();
-
+	m_objects.initSound();
 
 
 	glutDisplayFunc(RenderScene);

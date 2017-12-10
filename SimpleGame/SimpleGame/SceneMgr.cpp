@@ -9,6 +9,7 @@ SceneMgr::SceneMgr()
 SceneMgr::~SceneMgr()
 {
 	delete m_renderer;
+	delete m_sound;
 }
 
 void SceneMgr::createObj(const int x, const int y, const int type, const int team)
@@ -74,7 +75,7 @@ void SceneMgr::update(float time)
 {
 	static float count(0);
 	count += time;
-	for (auto& d = objList.begin(); d != objList.end(); d++) {
+	for (auto& d = objList.begin(); d != objList.end();) {
 		d->update(time);
 		//충돌체크 판정
 		for (auto& c : objList) {
@@ -82,12 +83,14 @@ void SceneMgr::update(float time)
 				if (collision(d->getX() - d->getSize() / 2, d->getY() - d->getSize() / 2, d->getX() + d->getSize() / 2, d->getY() + d->getSize() / 2,
 							  c.getX() - c.getSize() / 2, c.getY() - c.getSize() / 2, c.getX() + c.getSize() / 2, c.getY() + c.getSize() / 2)) {
 					if (d->getType() == CHARA && c.getType() == BUILDING) {
+						m_sound->PlaySound(SoundNum[1], false, 0.2f);
 						c.setLife(c.getLife() - d->getLife());
 						d->setLife(0);
 					}
 					if ((d->getType() == ARROW || d->getType() == BULLET) &&
 						(c.getType() == CHARA || c.getType() == BUILDING))
 					{
+						m_sound->PlaySound(SoundNum[1], false, 0.2f);
 						c.setLife(c.getLife() - d->getLife());
 						d->setLife(0);
 					}
@@ -99,14 +102,6 @@ void SceneMgr::update(float time)
 			if (!collision(d->getX() + d->getSize() / 2, d->getY() + d->getSize() / 2, d->getX() - d->getSize() / 2, d->getY() - d->getSize() / 2,
 				-MidX, -MidY, MidX, MidY)) {
 				d->setLife(0);
-			}
-		}
-		//오브젝트의 라이프가 0일때 삭제처리
-		if (d->getLife() <= 0 || d->getLifeTime() <= 0) {		
-			d = objList.erase(d);
-			NumOfObj--;
-			if (d == objList.end()) {
-				break;
 			}
 		}
 		//오브젝트의 쿨다운 관련 행동
@@ -123,6 +118,13 @@ void SceneMgr::update(float time)
 		else {
 			d->setCool(d->getCool() - time);
 		}
+		//오브젝트의 라이프가 0일때 삭제처리
+		if (d->getLife() <= 0 || d->getLifeTime() <= 0) {
+			d = objList.erase(d);
+			NumOfObj--;
+			continue;
+		}
+		d++;
 	}
 
 	//1초마다 적 생성
@@ -135,6 +137,14 @@ void SceneMgr::update(float time)
 void SceneMgr::initRenderer(int xl, int yl) {
 	m_renderer = new Renderer(xl, yl);
 }
+
+void SceneMgr::initSound() {
+	m_sound = new Sound;
+	SoundNum[0] = m_sound->CreateSound("./Dependencies/SoundSamples/MF-W-90.XM");
+	SoundNum[1] = m_sound->CreateSound("./Dependencies/SoundSamples/explosion.wav");
+	m_sound->PlaySound(SoundNum[0], true, 0.2f);
+}
+
 void SceneMgr::imageLoad() {
 	BImage[0] = m_renderer->CreatePngTexture("Resource/aa.png");
 	BImage[1] = m_renderer->CreatePngTexture("Resource/bb.png");

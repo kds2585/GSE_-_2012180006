@@ -178,23 +178,34 @@ void Object::setColor(const float sc) {
 }
 
 void Object::drawObject(Renderer& Rend, const int imgID){
+	char hp[10];
 	switch (type) {
 	case CHARA:
 		if (team == TeamB) {
 			Rend.DrawTexturedRectSeq(x, y, 0, size, colorR, colorG, colorB, colorA, imgID, animation, 0, 15, 1, LEVEL_GROUND);
-			Rend.DrawSolidRectGauge(x, y + size / 1.5, 0, size, 5, 1, 0, 0, 1, Life / LifeMax, LEVEL_GOD);
+			Rend.DrawSolidRectGauge(x, y + size / 1.5, 0, size, size/6, 1, 0, 0, 1, Life / LifeMax, LEVEL_GOD);
+			sprintf(hp, "%.0f", Life);
+			Rend.DrawText(x - 8, y + size / 1.5, GLUT_BITMAP_TIMES_ROMAN_10,0,1,0,hp);
 		}
 		else {
 			Rend.DrawTexturedRectSeq(x, y, 0, size, colorR, colorG, colorB, colorA, imgID, animation, 0, 15, 1, LEVEL_GROUND);
-			Rend.DrawSolidRectGauge(x, y + size / 1.5, 0, size, 5, 0, 0, 1, 1, Life / LifeMax, LEVEL_GOD);
+			Rend.DrawSolidRectGauge(x, y + size / 1.5, 0, size, size/6, 0, 0, 1, 1, Life / LifeMax, LEVEL_GOD);
+			sprintf(hp, "%.0f", Life);
+			Rend.DrawText(x-8, y + size / 1.5, GLUT_BITMAP_TIMES_ROMAN_10, 0, 1, 0, hp);
 		}
 		break;
 	case BUILDING:
 		Rend.DrawTexturedRect(x,y,0,size, colorR, colorG, colorB, colorA, imgID, LEVEL_SKY);
-		if (team == TeamB)
-			Rend.DrawSolidRectGauge(x, y + size / 1.5, 0, size, 5, 1, 0, 0, 1, Life / LifeMax, LEVEL_GOD);
-		else
-			Rend.DrawSolidRectGauge(x, y + size / 1.5, 0, size, 5, 0, 0, 1, 1, Life / LifeMax, LEVEL_GOD);
+		if (team == TeamB) {
+			Rend.DrawSolidRectGauge(x, y + size / 1.5, 0, size, size/6, 1, 0, 0, 1, Life / LifeMax, LEVEL_GOD);
+			sprintf(hp, "%.0f/%.0f", Life, LifeMax);
+			Rend.DrawText(x-16, y + size / 1.5, GLUT_BITMAP_TIMES_ROMAN_24, 0, 1, 0, hp);
+		}
+		else {
+			Rend.DrawSolidRectGauge(x, y + size / 1.5, 0, size, size/6, 0, 0, 1, 1, Life / LifeMax, LEVEL_GOD);
+			sprintf(hp, "%.0f/%.0f", Life, LifeMax);
+			Rend.DrawText(x-16, y + size / 1.5, GLUT_BITMAP_TIMES_ROMAN_24, 0, 1, 0, hp);
+		}
 		break;
 	case BULLET:
 		Rend.DrawParticle(x, y, 0, size, colorR, colorG, colorB, colorA, -dx, -dy, imgID, animation);
