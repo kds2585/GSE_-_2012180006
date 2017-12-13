@@ -149,7 +149,7 @@
  *               <li>If you can choose which audio file format is the primary one for your application,
  *					 use .OGG files, instead of for example .MP3 files. irrKlang uses a lot less memory
  *                   and CPU power when playing .OGGs.</li>
- *               <li>To keep your application simple, each time you play a sound, you can use for example
+ *               <li>To keep your application simple, each m_time you play a sound, you can use for example
  *                   play2D("filename.mp3") and let irrKlang handle the rest. There is no need to implement
  *                   a preloading/caching/file management system for the audio playback. irrKlang will handle
  *                   all this by itself and will never load a file twice. </li>
@@ -301,7 +301,7 @@
  * without files.
  * Of course, it is not necessary to use sound sources. Using irrklang::ISound, it is
  * possible to change the settings of all sounds, too. But using sound sources, it is
- * not necessary to do this every time a sound is played.
+ * not necessary to do this every m_time a sound is played.
  * <br/>
  * <br/>
  * <br/>
@@ -340,7 +340,7 @@
  * 
  * There is also the possibility to change the maxDistance, but it is only necessary to change this
  * in very rare cicumstances.
- * If the sound moves, it is also a good idea to update its position from time to time:
+ * If the sound moves, it is also a good idea to update its position from m_time to m_time:
  * 
  * \code
  * if (snd)
@@ -360,7 +360,7 @@
  * \endcode
  *
  * To update the position of yourself, the listener of the 3D sounds, use this from
- * time to time:
+ * m_time to m_time:
  *
  * \code
  * irrklang::vec3df position(0,0,0);        // position of the listener
@@ -518,7 +518,7 @@
  * \endcode
  *
  * This enabled the echo sound effect for this sound. The method also supports a lot of 
- * parameters, and can be called multiple times to change those parameters over time if wished.
+ * parameters, and can be called multiple times to change those parameters over m_time if wished.
  * There are a lot of other sound effects, see irrklang::ISoundEffectControl for details.
  * <br/>
  * <br/>
@@ -699,7 +699,7 @@
  * } 
  * \endcode
  *
- * In this way, it is also possible to play back sound using two devices at the same time: Simply 
+ * In this way, it is also possible to play back sound using two devices at the same m_time: Simply 
  * create two irrKlang devices with each a different deviceID.<br/>
  * Note: createSoundDeviceList() takes a driver type parameter (such as irrklang::ESOD_DIRECT_SOUND8), which you
  * have to set to the same value as the first parameter you want to use with createIrrKlangDevice(), if it is 
@@ -866,7 +866,7 @@
  * \section quickstartexample2 Quick Start Example 2
  *
  * The following is a simple interactive application, starting up the sound engine and 
- * playing some streaming .ogg music file and a .wav sound effect every time the user
+ * playing some streaming .ogg music file and a .wav sound effect every m_time the user
  * presses a key.
  *
  * \code

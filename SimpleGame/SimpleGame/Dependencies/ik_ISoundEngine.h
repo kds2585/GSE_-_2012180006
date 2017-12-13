@@ -61,7 +61,7 @@ namespace irrklang
 							   bool enableSoundEffects = false) = 0;
 
 		//! Plays a sound source as 2D sound with its default settings stored in ISoundSource.
-		/** An ISoundSource object will be created internally when playing a sound the first time,
+		/** An ISoundSource object will be created internally when playing a sound the first m_time,
 		or can be added with getSoundSource().
 		\param source The sound source, specifiying sound file source and default settings for this file.
 		Use the other ISoundEngine::play2D() overloads if you want to specify a filename string instead of this.
@@ -118,7 +118,7 @@ namespace irrklang
 							   bool enableSoundEffects = false) = 0;
 
 		//! Plays a sound source as 3D sound with its default settings stored in ISoundSource.
-		/** An ISoundSource object will be created internally when playing a sound the first time,
+		/** An ISoundSource object will be created internally when playing a sound the first m_time,
 		or can be added with getSoundSource(). There is some example code on how to work with 3D sound @ref sound3d.
 		\param source The sound source, specifiying sound file source and default settings for this file.
 		Use the other ISoundEngine::play2D() overloads if you want to specify a filename string instead of this.

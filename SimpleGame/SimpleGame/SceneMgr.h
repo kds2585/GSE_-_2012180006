@@ -18,8 +18,9 @@ class SceneMgr {
 	Sound *m_sound;
 	int objNumLimit;
 	int NumOfObj;
-	int BImage[5];
+	int ImageNumber[6];
 	int SoundNum[2];
+	double m_time;
 public:
 	SceneMgr();
 	~SceneMgr();

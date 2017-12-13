@@ -4,6 +4,7 @@
 SceneMgr::SceneMgr()
 {
 	objNumLimit = 200;
+	m_time = 0;
 }
 
 SceneMgr::~SceneMgr()
@@ -33,18 +34,19 @@ void SceneMgr::createObjSon(const int x, const int y, const int type, const int 
 
 void SceneMgr::drawScene()
 {
-	m_renderer->DrawTexturedRect(0, 0, 0, WinHei, 1, 1, 1, 1, BImage[2], 0.9);
+	m_renderer->DrawTexturedRect(0, 0, 0, WinHei, 1, 1, 1, 1, ImageNumber[2], 0.9);
+	m_renderer->DrawParticleClimate(0, 0, 0, 1, 1, 1, 1, 1, -0.1, -0.1, ImageNumber[5], m_time, LEVEL_GROUND);
 	for (auto& d : objList) {
 		if (d.getTeam() == TeamA) {
 			switch (d.getType()) {
 			case BUILDING:
-				d.drawObject(*m_renderer, BImage[0]);
+				d.drawObject(*m_renderer, ImageNumber[0]);
 				break;
 			case CHARA:
-				d.drawObject(*m_renderer, BImage[3]);
+				d.drawObject(*m_renderer, ImageNumber[3]);
 				break;
 			case BULLET:
-				d.drawObject(*m_renderer, BImage[4]);
+				d.drawObject(*m_renderer, ImageNumber[4]);
 				break;
 			default:
 				d.drawObject(*m_renderer, 0);
@@ -54,13 +56,13 @@ void SceneMgr::drawScene()
 		else if (d.getTeam() == TeamB) {
 			switch (d.getType()) {
 			case BUILDING:
-				d.drawObject(*m_renderer, BImage[1]);
+				d.drawObject(*m_renderer, ImageNumber[1]);
 				break;
 			case CHARA:
-				d.drawObject(*m_renderer, BImage[3]);
+				d.drawObject(*m_renderer, ImageNumber[3]);
 				break;
 			case BULLET:
-				d.drawObject(*m_renderer, BImage[4]);
+				d.drawObject(*m_renderer, ImageNumber[4]);
 				break;
 			default:
 				d.drawObject(*m_renderer, 0);
@@ -68,13 +70,14 @@ void SceneMgr::drawScene()
 			}
 		}
 	}
-	
+
 }
 
 void SceneMgr::update(float time)
 {
 	static float count(0);
 	count += time;
+	m_time += time;
 	for (auto& d = objList.begin(); d != objList.end();) {
 		d->update(time);
 		//충돌체크 판정
@@ -146,12 +149,12 @@ void SceneMgr::initSound() {
 }
 
 void SceneMgr::imageLoad() {
-	BImage[0] = m_renderer->CreatePngTexture("Resource/aa.png");
-	BImage[1] = m_renderer->CreatePngTexture("Resource/bb.png");
-	BImage[2] = m_renderer->CreatePngTexture("Resource/BG.png");
-	BImage[3] = m_renderer->CreatePngTexture("Resource/Char.png");
-	BImage[4] = m_renderer->CreatePngTexture("Resource/part.png");
-
+	ImageNumber[0] = m_renderer->CreatePngTexture("Resource/aa.png");
+	ImageNumber[1] = m_renderer->CreatePngTexture("Resource/bb.png");
+	ImageNumber[2] = m_renderer->CreatePngTexture("Resource/BG.png");
+	ImageNumber[3] = m_renderer->CreatePngTexture("Resource/Char.png");
+	ImageNumber[4] = m_renderer->CreatePngTexture("Resource/part.png");
+	ImageNumber[5] = m_renderer->CreatePngTexture("Resource/snow.png");
 }
 bool SceneMgr::collision(int rtx1, int rty1, int rbx1, int rby1, int rtx2, int rty2, int rbx2, int rby2)
 {

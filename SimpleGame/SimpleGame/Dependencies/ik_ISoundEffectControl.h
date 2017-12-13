@@ -35,7 +35,7 @@ namespace irrklang
 		original sound with a slight delay and slightly modulating the delay of the echo. 
 		If this sound effect is already enabled, calling this only modifies the parameters of the active effect.
 		\param fWetDryMix Ratio of wet (processed) signal to dry (unprocessed) signal. Minimal Value:0, Maximal Value:100.0f;
-		\param fDepth Percentage by which the delay time is modulated by the low-frequency oscillator, in hundredths of a percentage point. Minimal Value:0, Maximal Value:100.0f;
+		\param fDepth Percentage by which the delay m_time is modulated by the low-frequency oscillator, in hundredths of a percentage point. Minimal Value:0, Maximal Value:100.0f;
 		\param fFeedback Percentage of output signal to feed back into the effect's input. Minimal Value:-99, Maximal Value:99.0f;
 		\param fFrequency Frequency of the LFO. Minimal Value:0, Maximal Value:10.0f;
 		\param sinusWaveForm True for sinus wave form, false for triangle.
@@ -125,12 +125,12 @@ namespace irrklang
 
 		//! Enables the Flanger sound effect or adjusts its values.
 		/** Flange is an echo effect in which the delay between the original 
-		signal and its echo is very short and varies over time. The result is 
+		signal and its echo is very short and varies over m_time. The result is 
 		sometimes referred to as a sweeping sound. The term flange originated
 		with the practice of grabbing the flanges of a tape reel to change the speed. 
 		If this sound effect is already enabled, calling this only modifies the parameters of the active effect.
 		\param fWetDryMix Ratio of wet (processed) signal to dry (unprocessed) signal. Minimal Value:0, Maximal Value:100.0f;
-		\param fDepth Percentage by which the delay time is modulated by the low-frequency oscillator, in hundredths of a percentage point. Minimal Value:0, Maximal Value:100.0f;
+		\param fDepth Percentage by which the delay m_time is modulated by the low-frequency oscillator, in hundredths of a percentage point. Minimal Value:0, Maximal Value:100.0f;
 		\param fFeedback Percentage of output signal to feed back into the effect's input. Minimal Value:-99, Maximal Value:99.0f;
 		\param fFrequency Frequency of the LFO. Minimal Value:0, Maximal Value:10.0f;
 		\param triangleWaveForm True for triangle wave form, false for square.
@@ -172,12 +172,12 @@ namespace irrklang
 		\param lRoom Attenuation of the room effect, in millibels (mB). Interval: [-10000, 0] Default: -1000 mB
 		\param lRoomHF Attenuation of the room high-frequency effect. Interval: [-10000, 0]      default: 0 mB
 		\param flRoomRolloffFactor Rolloff factor for the reflected signals. Interval: [0.0, 10.0]      default: 0.0
-		\param flDecayTime Decay time, in seconds. Interval: [0.1, 20.0]      default: 1.49s
-		\param flDecayHFRatio Ratio of the decay time at high frequencies to the decay time at low frequencies. Interval: [0.1, 2.0]       default: 0.83
+		\param flDecayTime Decay m_time, in seconds. Interval: [0.1, 20.0]      default: 1.49s
+		\param flDecayHFRatio Ratio of the decay m_time at high frequencies to the decay m_time at low frequencies. Interval: [0.1, 2.0]       default: 0.83
 		\param lReflections Attenuation of early reflections relative to lRoom. Interval: [-10000, 1000]   default: -2602 mB
-		\param flReflectionsDelay Delay time of the first reflection relative to the direct path in seconds. Interval: [0.0, 0.3]       default: 0.007 s
+		\param flReflectionsDelay Delay m_time of the first reflection relative to the direct path in seconds. Interval: [0.0, 0.3]       default: 0.007 s
 		\param lReverb Attenuation of late reverberation relative to lRoom, in mB. Interval: [-10000, 2000]   default: 200 mB
-		\param flReverbDelay Time limit between the early reflections and the late reverberation relative to the time of the first reflection. Interval: [0.0, 0.1]       default: 0.011 s
+		\param flReverbDelay Time limit between the early reflections and the late reverberation relative to the m_time of the first reflection. Interval: [0.0, 0.1]       default: 0.011 s
 		\param flDiffusion Echo density in the late reverberation decay in percent. Interval: [0.0, 100.0]     default: 100.0 %
 		\param flDensity Modal density in the late reverberation decay, in percent. Interval: [0.0, 100.0]     default: 100.0 %
 		\param flHFReference Reference high frequency, in hertz. Interval: [20.0, 20000.0]  default: 5000.0 Hz 
@@ -222,8 +222,8 @@ namespace irrklang
 		/** \param fInGain Input gain of signal, in decibels (dB). Min/Max: [-96.0,0.0] Default: 0.0 dB.
 		If this sound effect is already enabled, calling this only modifies the parameters of the active effect.
 		\param fReverbMix Reverb mix, in dB. Min/Max: [-96.0,0.0] Default: 0.0 dB
-		\param fReverbTime Reverb time, in milliseconds. Min/Max: [0.001,3000.0] Default: 1000.0 ms
-		\param fHighFreqRTRatio High-frequency reverb time ratio. Min/Max: [0.001,0.999] Default: 0.001 
+		\param fReverbTime Reverb m_time, in milliseconds. Min/Max: [0.001,3000.0] Default: 1000.0 ms
+		\param fHighFreqRTRatio High-frequency reverb m_time ratio. Min/Max: [0.001,0.999] Default: 0.001 
 		\return Returns true if successful. */
 		virtual bool enableWavesReverbSoundEffect(ik_f32 fInGain = 0,
 											ik_f32 fReverbMix = 0,

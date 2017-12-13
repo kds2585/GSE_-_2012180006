@@ -31,7 +31,7 @@ Object::Object(const float sx, const float sy, const int typ, const int sid, con
 		break;
 	case BULLET:
 		Life = 15;
-		spd = 600;
+		spd = 300;
 		size = 4;
 		break;
 	case ARROW:
@@ -54,8 +54,8 @@ Object::Object(const float sx, const float sy, const int typ, const int sid, con
 			colorB = 1;
 			break;
 		case BULLET:
-			colorR = 0;
-			colorG = 0;
+			colorR = 0.2;
+			colorG = 0.2;
 			colorB = 1;
 			break;
 		case ARROW:
@@ -79,8 +79,8 @@ Object::Object(const float sx, const float sy, const int typ, const int sid, con
 			break;
 		case BULLET:
 			colorR = 1;
-			colorG = 0;
-			colorB = 0;
+			colorG = 0.2;
+			colorB = 0.2;
 			break;
 		case ARROW:
 			colorR = 0.5;
@@ -208,7 +208,7 @@ void Object::drawObject(Renderer& Rend, const int imgID){
 		}
 		break;
 	case BULLET:
-		Rend.DrawParticle(x, y, 0, size, colorR, colorG, colorB, colorA, -dx, -dy, imgID, animation);
+		Rend.DrawParticle(x, y, 0, size, colorR, colorG, colorB, colorA, -dx, -dy, imgID, animation, LEVEL_SKY);
 		//Rend.DrawSolidRect(x, y, 0, size, colorR, colorG, colorB, colorA, LEVEL_UNDERGROUND);
 		break;
 	case ARROW:
@@ -235,7 +235,7 @@ void Object::update(const float time)
 	}
 
 
-	//LifeTime -= time;
+	//LifeTime -= m_time;
 	if (x < -MidX) {
 		dx = dx * -1;
 		x = -MidX;

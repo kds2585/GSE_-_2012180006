@@ -33,7 +33,7 @@ extern const char* LODEPNG_VERSION_STRING;
 
 /*
 The following #defines are used to create code sections. They can be disabled
-to disable code sections, which can give faster compile time and smaller binary.
+to disable code sections, which can give faster compile m_time and smaller binary.
 The "NO_COMPILE" defines are designed to be used to pass as defines to the
 compiler command to disable them without modifying this header, e.g.
 -DLODEPNG_NO_COMPILE_ZLIB for gcc.
@@ -458,7 +458,7 @@ typedef struct LodePNGInfo
 	char** itext_transkeys; /*keyword translated to the international language - UTF-8 string*/
 	char** itext_strings; /*the actual international text - UTF-8 string*/
 
-						  /*time chunk (tIME)*/
+						  /*m_time chunk (tIME)*/
 	unsigned time_defined; /*set to 1 to make the encoder generate a tIME chunk*/
 	LodePNGTime time;
 
@@ -1007,7 +1007,7 @@ namespace lodepng
   iTXt: international textual information
   bKGD: suggested background color
   pHYs: physical dimensions
-  tIME: modification time
+  tIME: modification m_time
 
   1.2. features not supported
   ---------------------------
@@ -1142,7 +1142,7 @@ namespace lodepng
   The encoder will not always exactly match the LodePNGInfo struct you give,
   it tries as close as possible. Some things are ignored by the encoder. The
   encoder uses, for example, the following settings from it when applicable:
-  colortype and bitdepth, text chunks, time chunk, the color key, the palette, the
+  colortype and bitdepth, text chunks, m_time chunk, the color key, the palette, the
   background color, the interlace method, unknown chunks, ...
 
   When encoding to a PNG with colortype 3, the encoder will generate a PLTE chunk.

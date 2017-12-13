@@ -33,7 +33,7 @@ namespace irrklang
 
 		//! Returns the detected or set type of the sound with wich the sound will be played.
 		/** Note: If the returned type is ESM_AUTO_DETECT, this mode will change after the
-		sound has been played the first time. */
+		sound has been played the first m_time. */
 		virtual E_STREAM_MODE getStreamMode() = 0;
 
 		//! Returns the play length of the sound in milliseconds.
@@ -128,9 +128,9 @@ namespace irrklang
 		//! Forces the sound to be reloaded at next replay.
 		/** Sounds which are not played as streams are buffered to make it possible to
 		replay them without much overhead. If the sound file is altered after the sound
-		has been played the first time, the engine won't play the changed file then.
+		has been played the first m_time, the engine won't play the changed file then.
 		Calling this method makes the engine reload the file before the file is played
-		the next time.*/
+		the next m_time.*/
 		virtual void forceReloadAtNextUse() = 0;
 
 		//! Sets the threshold size where irrKlang decides to force streaming a file independent of the user specified setting.
